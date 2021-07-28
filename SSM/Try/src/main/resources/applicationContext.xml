@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="org.javaTry.ioc.model.User" id="user">
+        <constructor-arg name="id" value="1"/>
+
+    </bean>
+    <bean class="org.javaTry.ioc.model.User" id="user3" p:username="zhouql" p:id="3" p:address="flyingchase.github.io"/>
+    <!--<bean class="org.javaTry.ioc.OkHttpStaticFactory" factory-method="getInstance" id="okHttpClient"/>-->
+
+    <bean class="org.javaTry.ioc.OkHttpFactory" id="okHttpFactory"/>
+    <bean class="okhttp3.OkHttpClient" factory-bean="okHttpFactory" factory-method="getInstance" id="okHttpClient"/>
+
+    <bean class="org.javaTry.ioc.model.User" id="user4">
+        <property name="address" value="flyingchase.github.io"/>
+        <property name="id" value="4"/>
+        <property name="username" value="wlzhou"/>
+        <property name="cat" ref="cat"/>
+        <property name="cats">
+            <array>
+                <ref bean="cat"/>
+                <bean class="org.javaTry.ioc.model.Cat" id="cat2">
+                    <property name="age" value="1"/>
+                    <property name="name" value="greatNameTwo"/>
+                </bean>
+            </array>
+        </property>
+        <property name="details">
+            <map>
+                <entry key="gender" value="1"/>
+                <entry key="age" value="46"/>
+            </map>
+        </property>
+        <property name="info">
+            <props>
+                <prop key="phone">110</prop>
+                <prop key="address">weidu</prop>
+            </props>
+        </property>
+        <property name="favorites">
+            <list>
+                <value>a</value>
+                <value>b</value>
+            </list>
+        </property>
+    </bean>
+    <bean class="org.javaTry.ioc.model.Cat" id="cat">
+        <constructor-arg value="2"/>
+        <property name="age" value="100"/>
+        <property name="name" value="greatName"/>
+
+    </bean>
+</beans>
