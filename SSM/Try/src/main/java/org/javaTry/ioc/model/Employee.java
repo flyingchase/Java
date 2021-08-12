@@ -1,11 +1,11 @@
 package org.javaTry.ioc.model;
 
-public class Empoyee {
+public class Employee {
     private String name;
     private Integer age;
     private double sores;
 
-    public Empoyee(String name, Integer age, double sores) {
+    public Employee(String name, Integer age, double sores) {
 
         this.name = name;
         this.age = age;

@@ -24,6 +24,11 @@ Spring Bean容器可以自动完成
 
 
 
+- Property 定义类的属性
+- id 是 Spring 找到 Bean 的编号 可默认生成 
+- class 为类全限定名
+- Ref 属性为自定义类
+
 集合数组注入：
 
 ``` xml
@@ -72,7 +77,7 @@ Bean注册到Spring容器中有三种方式：
 
 - XML注入
 
-- Java配置 SB中不使用xml配置
+- Java配置  SB中不使用xml配置
 
   - `@Configuration`  `@Bean`
 
@@ -104,7 +109,81 @@ Bean注册到Spring容器中有三种方式：
 
 - 自动化扫描
 
+  - `@Service` ——>`@Component` `@Repository` `@Service` `@Controller`
 
+  - ``` java
+    import org.springframework.beans.factory.annotation.Value;
+    import org.springframework.stereotype.Component;
+    
+    @Component(value="role")
+    // @Component("role")
+    // @Componenet // 默认为类的首字母小写类名
+    public class Role {
+        @Value("1")
+        private Long id;
+        @Value("xiaoming")
+        private String roleName;
+        @Value("haha")
+        private String note;
+    
+        public Long getId() {
+            return id;
+        }
+    
+        public void setId(Long id) {
+            this.id = id;
+        }
+    
+        public String getRoleName() {
+            return roleName;
+        }
+    
+        public void setRoleName(String roleName) {
+            this.roleName = roleName;
+        }
+    
+        public String getNote() {
+            return note;
+        }
+    
+        public void setNote(String note) {
+            this.note = note;
+        }
+    }
+    ```
+
+    
+
+  - Bean的名字默认为类名称小写 或者Service(“自定义”)  
+
+  - 在 `Java Config`中使用`@ComponentScan(basePacksges = "包名称的相对路径扫描", includeFiles = ...)` 确定自动化扫描的范围 默认为同级包及子包
+
+  - 在 Spring IoC 容器的实现类`AnnotationConfigApplicationContext`中生成容器
+
+    - ``` java
+      import org.springframework.context.ApplicationContext;
+      import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+      
+      public class mainApp {
+          public static void main(String[] args) {
+              ApplicationContext context = new AnnotationConfigApplicationContext(PojoScan.class);
+              Role role = context.getBean(Role.class);
+              System.err.println(role.getId());
+          }
+      }
+      ```
+
+    
+
+    **自动化扫描总结：** 
+
+    - 需要实体类的定义 @Component作用于类+@Bean作用于方法
+      - 
+    - 需要 JavaConfig @ComponentScan 来使得 Spring 找到扫描 Bean 的包 默认同级包
+    - 需要实现类 AnnotationConfigApplicationContext 生成从其
+    - 
+
+- 
 
 ### 1.2 AOP
 
