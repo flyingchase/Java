@@ -220,7 +220,17 @@ public String toGoatLatin(String S) {
 
 
 
-
+```java
+private static final String SPACE = " ";
+public String reverseWords(String s) {
+    String[] words = s.split(SPACE);
+    StringBuilder sb = new StringBuilder();
+    for (String word : words) {
+        sb.append(new StringBuilder(word).reverse().append(SPACE));
+    }
+    return sb.substring(0,sb.length()-1);
+}
+```
 
 
 
@@ -324,7 +334,7 @@ public int removeDuplicates(int[] A) {
 
 - 从转折点向后找 找到转折点后最小的数字 并交换转折点和其后的最小位置  即为下一个稍大的排列
 
-
+\
 
 ```java
 public int[] nextPermutation(int[] nums) {
